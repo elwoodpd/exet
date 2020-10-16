@@ -1879,15 +1879,16 @@ Exet.prototype.populateFrame = function() {
 }
 
 Exet.prototype.download = function(solved=true) {
-  let html = this.getHTML(solved)
+  let html = this.getHTML(solved);
+  let filetitle = this.puz.title.replace(/[^a-z0-9]/gi, '-').toLowerCase();
   const a = document.createElement("a");
   a.style.display = "none";
   document.body.appendChild(a);
   a.href = window.URL.createObjectURL(
     new Blob([html], {type: "text/html"})
   );
-  a.setAttribute("download", solved ? "exet-exolve-solved.html" :
-    "exet-exolve-unsolved.html");
+  a.setAttribute("download", solved ? filetitle+"-exet-exolve-solved.html" :
+  filetitle+"-exet-exolve-unsolved.html");
   a.click();
   window.URL.revokeObjectURL(a.href);
   document.body.removeChild(a);
